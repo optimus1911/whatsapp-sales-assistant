@@ -1,0 +1,42 @@
+[
+  {
+    "id": "cust_1",
+    "name": "Sarah Jenkins",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=Sarah",
+    "status": "online",
+    "phone": "+1 (555) 019-2834",
+    "lastSeen": "online",
+    "leadScore": 85,
+    "unreadCount": 2
+  },
+  {
+    "id": "cust_2",
+    "name": "David Chen",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=David",
+    "status": "offline",
+    "phone": "+1 (555) 014-9982",
+    "lastSeen": "today at 8:45 PM",
+    "leadScore": 92,
+    "unreadCount": 0
+  },
+  {
+    "id": "cust_3",
+    "name": "Elena Rostova",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=Elena",
+    "status": "online",
+    "phone": "+44 20 7946 0958",
+    "lastSeen": "online",
+    "leadScore": 45,
+    "unreadCount": 0
+  },
+  {
+    "id": "cust_4",
+    "name": "Marcus Aurelius",
+    "avatar": "https://api.dicebear.com/7.x/adventurer/svg?seed=Marcus",
+    "status": "offline",
+    "phone": "+39 06 6982",
+    "lastSeen": "yesterday at 3:12 PM",
+    "leadScore": 60,
+    "unreadCount": 1
+  }
+]
