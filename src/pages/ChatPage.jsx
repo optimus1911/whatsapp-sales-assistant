@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState } from "react";
+import Sidebar from "../components/chat/Sidebar";
+import ChatArea from "../components/chat/ChatArea";
 
 export default function ChatPage() {
+  // Start with null active ID. Sidebar will auto-select the first MongoDB customer.
+  const [activeCustomerId, setActiveCustomerId] = useState(null);
+
   return (
-    <div className="w-full h-full flex items-center justify-center bg-whatsapp-dark text-whatsapp-gray text-xl">
-      Chat Page Placeholder (Ready for components)
+    <div className="flex h-screen bg-whatsapp-dark">
+      <Sidebar
+        activeCustomerId={activeCustomerId}
+        onSelectCustomer={setActiveCustomerId}
+      />
+
+      <ChatArea activeCustomerId={activeCustomerId} />
     </div>
-  )
+  );
 }
