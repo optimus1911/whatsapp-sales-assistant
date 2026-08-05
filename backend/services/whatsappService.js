@@ -3,6 +3,9 @@ import axios from "axios";
 export const sendWhatsAppMessage = async (toPhone, messageText) => {
   try {
     const url = `${process.env.WHATSAPP_API_URL}/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+    console.log("Sending to URL:", url);
+    console.log("To:", toPhone);
+    console.log("Message:", messageText);
 
     const response = await axios.post(
       url,

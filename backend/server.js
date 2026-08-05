@@ -3,6 +3,12 @@ import connectDB from './config/db.js'
 
 // Connect to MongoDB Database
 connectDB()
+import dotenv from "dotenv";
+dotenv.config();
+
+console.log("Gemini:", process.env.GEMINI_API_KEY ? "Loaded ✅" : "Missing ❌");
+console.log("Mongo :", process.env.MONGODB_URI ? "Loaded ✅" : "Missing ❌");
+console.log("WA Token:", process.env.WHATSAPP_ACCESS_TOKEN ? "Loaded ✅" : "Missing ❌");
 
 const PORT = process.env.PORT || 5000
 
