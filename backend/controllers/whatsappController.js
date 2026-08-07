@@ -1,3 +1,4 @@
+import Customer from "../models/Customer.js";
 import { generateAiResponse } from "../services/geminiService.js";
 import { sendWhatsAppMessage } from "../services/whatsappService.js";
 import { saveMessage } from "../services/chatService.js";
@@ -54,6 +55,23 @@ export const handleWebhook = async (req, res, next) => {
 
         console.log("Customer:", from);
         console.log("Message:", text);
+        // Create or update customer
+await Customer.findOneAndUpdate(
+  { phone: from },
+  {
+    phone: from,
+    name:
+      body.entry?.[0]?.changes?.[0]?.value?.contacts?.[0]?.profile?.name ||
+      from,
+    lastMessage: text,
+    online: true,
+    lastSeen: "Just now",
+  },
+  {
+    new: true,
+    upsert: true,
+  }
+);
 
         // Save incoming customer message to database first
         if (text) {
