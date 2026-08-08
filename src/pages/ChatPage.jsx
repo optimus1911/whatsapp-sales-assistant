@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import Sidebar from "../components/chat/Sidebar";
 import ChatArea from "../components/chat/ChatArea";
+import Dashboard from "./Dashboard";
+import { CRMProvider, useCRM } from "../context/CRMContext";
+import ToastContainer from "../components/common/ToastContainer";
 
-export default function ChatPage() {
-  // Start with null active ID. Sidebar will auto-select the first MongoDB customer.
-  const [activeCustomerId, setActiveCustomerId] = useState(null);
+function ChatPageContent() {
+  const { activeTab } = useCRM();
 
   return (
-    <div className="flex h-screen bg-whatsapp-dark">
-      <Sidebar
-        activeCustomerId={activeCustomerId}
-        onSelectCustomer={setActiveCustomerId}
-      />
+    <div className="flex h-screen bg-whatsapp-dark overflow-hidden">
+      {/* Sidebar is always visible and shares CRM state */}
+      <Sidebar />
 
-      <ChatArea activeCustomerId={activeCustomerId} />
+      {/* Main Workspace content depends on the active tab */}
+      {activeTab === "dashboard" ? (
+        <Dashboard />
+      ) : (
+        <ChatArea />
+      )}
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <CRMProvider>
+      <ChatPageContent />
+      <ToastContainer />
+    </CRMProvider>
   );
 }

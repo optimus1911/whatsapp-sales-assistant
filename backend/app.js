@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import customerRoutes from './routes/customerRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import whatsappRoutes from './routes/whatsappRoutes.js'
+import dashboardRoutes from './routes/dashboardRoutes.js'
 
 // Middleware imports
 import errorHandler from './middleware/errorHandler.js'
@@ -33,6 +34,7 @@ app.get('/health', (req, res) => {
 app.use('/api/customers', customerRoutes)
 app.use('/api/messages', messageRoutes)
 app.use('/api/whatsapp', whatsappRoutes)
+app.use('/api/dashboard', dashboardRoutes)
 
 // Fallback path handler for undefined routes
 app.use((req, res, next) => {

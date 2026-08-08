@@ -39,6 +39,30 @@ const customerSchema = new mongoose.Schema(
     online: {
       type: Boolean,
       default: false
+    },
+    intent: {
+      type: String,
+      default: ''
+    },
+    sentiment: {
+      type: String,
+      default: ''
+    },
+    priority: {
+      type: String,
+      default: 'Low'
+    },
+    summary: {
+      type: String,
+      default: ''
+    },
+    purchaseProbability: {
+      type: Number,
+      default: 0
+    },
+    recommendedProduct: {
+      type: String,
+      default: ''
     }
   },
   {
