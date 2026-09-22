@@ -37,7 +37,7 @@ Do not claim that you checked a catalog or policy database when you did not.
     console.log("Creating request...");
 
 const response = await ai.models.generateContent({
-  model: "gemini-3.5-flash",
+  model: "gemini-3.8-flash",
   contents: finalPrompt,
 });
 
@@ -56,3 +56,4 @@ const response = await ai.models.generateContent({
     return GEMINI_FALLBACK_RESPONSE;
 }
 };
+
