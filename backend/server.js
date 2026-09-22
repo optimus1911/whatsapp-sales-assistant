@@ -1,10 +1,9 @@
 import app from './app.js'
 import connectDB from './config/db.js'
+import './config/env.js'
 
 // Connect to MongoDB Database
 connectDB()
-import dotenv from "dotenv";
-dotenv.config();
 
 console.log("Gemini:", process.env.GEMINI_API_KEY ? "Loaded ✅" : "Missing ❌");
 console.log("Mongo :", process.env.MONGODB_URI ? "Loaded ✅" : "Missing ❌");

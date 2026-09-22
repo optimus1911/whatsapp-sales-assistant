@@ -2,6 +2,14 @@ import axios from "axios";
 
 export const sendWhatsAppMessage = async (toPhone, messageText) => {
   try {
+    if (!toPhone || !messageText) {
+      throw new Error("WhatsApp recipient and message text are required");
+    }
+
+    if (!process.env.WHATSAPP_API_URL || !process.env.WHATSAPP_PHONE_NUMBER_ID || !process.env.WHATSAPP_ACCESS_TOKEN) {
+      throw new Error("WhatsApp API configuration is incomplete");
+    }
+
     const url = `${process.env.WHATSAPP_API_URL}/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
     console.log("Sending to URL:", url);
     console.log("To:", toPhone);
@@ -29,9 +37,7 @@ export const sendWhatsAppMessage = async (toPhone, messageText) => {
 
     return response.data;
   } catch (error) {
-    console.error(
-      "WhatsApp Send Error:",
-      error.response?.data || error.message
-    );
+    console.error("WhatsApp Send Error:", error.response?.data || error.message);
+    throw error;
   }
 };

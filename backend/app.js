@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
+import './config/env.js'
 
 // Route imports
 import customerRoutes from './routes/customerRoutes.js'
@@ -9,9 +9,6 @@ import whatsappRoutes from './routes/whatsappRoutes.js'
 
 // Middleware imports
 import errorHandler from './middleware/errorHandler.js'
-
-// Load environment variables
-dotenv.config()
 
 const app = express()
 
