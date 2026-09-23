@@ -59,6 +59,17 @@ const run = async () => {
   assert.equal(calls, 3)
 
   calls = 0
+  const dailyQuota = await generateAiResponse('hello', '', {
+    ...requestOptions,
+    generateContent: async () => {
+      calls += 1
+      throw createError(429, 'Daily request limit exhausted for this project', 'RESOURCE_EXHAUSTED')
+    }
+  })
+  assert.equal(dailyQuota, fallback)
+  assert.equal(calls, 1)
+
+  calls = 0
   const invalidKey = await generateAiResponse('hello', '', {
     ...requestOptions,
     generateContent: async () => {

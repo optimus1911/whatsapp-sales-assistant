@@ -51,6 +51,22 @@ const sanitizeErrorMessage = (message = "Unknown Gemini error") =>
     .replace(/(Bearer\s+)[^\s]+/gi, "$1[redacted]")
     .replace(/(api[\s_-]?key[=:]\s*)[^\s,]+/gi, "$1[redacted]");
 
+const isDailyQuotaExhausted = (error, message) => {
+  const errorText = [
+    message,
+    error?.error?.message,
+    error?.response?.data?.error?.message
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return (
+    /daily|per day|requests per day|rpd/.test(errorText) &&
+    /quota|limit|exhaust|resource_exhausted/.test(errorText)
+  );
+};
+
 const getRetryAfterMs = (error) => {
   const retryAfter =
     error?.response?.headers?.["retry-after"] ??
@@ -143,10 +159,11 @@ Do not claim that you checked a catalog or policy database when you did not.
         const status = getErrorStatus(error);
         const code = getErrorCode(error);
         const message = sanitizeErrorMessage(error?.message);
-        const retryable = isRetryableError(error, status, code);
+        const dailyQuotaExhausted = isDailyQuotaExhausted(error, message);
+        const retryable = !dailyQuotaExhausted && isRetryableError(error, status, code);
 
         console.error(
-          `Gemini API error: status=${status ?? "unknown"} code=${code} attempt=${attempt + 1} message=${message}`
+          `Gemini API error: status=${status ?? "unknown"} code=${code} quota=${dailyQuotaExhausted ? "daily-exhausted" : "not-daily-exhausted"} attempt=${attempt + 1} message=${message}`
         );
 
         if (!retryable || attempt === maxRetries) {
